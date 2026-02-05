@@ -26,7 +26,8 @@ serve(async (req: any) => {
     Return ONLY the edited image in your response. Do not add any text or explanation.`
 
     // Using RAW FETCH to avoid SDK issues in Edge Runtime
-    const model = 'gemini-2.0-flash-exp'; // or 'gemini-1.5-flash'
+    // Switched to stable 1.5-flash because 2.0-flash-exp was returning 404 NOT_FOUND
+    const model = 'gemini-1.5-flash';
     const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
 
     const payload = {
@@ -41,9 +42,7 @@ serve(async (req: any) => {
           }
         ]
       }],
-      generationConfig: {
-        response_mime_type: "image/jpeg"
-      }
+      // generationConfig removed because image/jpeg is not a supported response_mime_type for this endpoint
     };
 
     console.log("Sending request to Gemini API (raw fetch)...");
