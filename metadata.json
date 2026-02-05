@@ -1,0 +1,7 @@
+{
+  "name": "FilterColor Pro AI",
+  "description": "Uma ferramenta industrial avançada para visualização de filtros, permitindo a alteração realista de cores de produtos usando inteligência artificial de ponta (Gemini) para manter texturas e reflexos originais.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
