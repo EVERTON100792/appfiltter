@@ -1,7 +1,7 @@
 
 import { GoogleGenAI } from "@google/genai";
 
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY || '' });
+const ai = new GoogleGenAI({ apiKey: 'AIzaSyDg0z6_7tfqZ8wKb5zLqTqEeXSUsOZewCU' });
 
 export async function changeFilterColor(
   base64Image: string,
