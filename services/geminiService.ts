@@ -2,8 +2,8 @@
 import { GoogleGenAI } from "@google/genai";
 
 // Configure aqui se você está usando um backend (Supabase) ou chamada direta
-const USE_SUPABASE = false; // Mude para true quando configurar sua Edge Function
-const SUPABASE_URL = 'https://seu-projeto.supabase.co/functions/v1/change-color';
+const USE_SUPABASE = true; // Mude para true quando configurar sua Edge Function
+const SUPABASE_URL = 'https://uylytpmsbsxuivrmauvw.supabase.co/functions/v1/change-color';
 
 /**
  * Função principal que decide se chama a API diretamente ou via Proxy (Supabase)
@@ -13,7 +13,7 @@ export async function changeFilterColor(
   targetColorName: string,
   targetHex: string
 ): Promise<string> {
-  
+
   if (USE_SUPABASE) {
     return callSupabaseProxy(base64Image, targetColorName, targetHex);
   }
