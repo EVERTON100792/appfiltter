@@ -73,11 +73,27 @@ async function callSupabaseProxy(base64Image: string, targetColorName: string, t
       body: JSON.stringify({ image: base64Image, colorName: targetColorName, hex: targetHex })
     });
 
-    if (!response.ok) throw new Error("Erro na função do Supabase");
+    if (!response.ok) {
+      // If HTTP error (500, 404, etc)
+      const text = await response.text();
+      throw new Error(`Erro HTTP ${response.status}: ${text}`);
+    }
+
     const data = await response.json();
+
+    // If backend returned a logic error (even with 200 OK)
+    if (data.error) {
+      throw new Error(data.error);
+    }
+
+    if (!data.image) {
+      throw new Error("A resposta do servidor não contém uma imagem.");
+    }
+
     return data.image; // Retorna a imagem já processada
-  } catch (error) {
+  } catch (error: any) {
     console.error("Erro na ponte Supabase:", error);
-    throw new Error("Não foi possível conectar ao Supabase.");
+    // Propagate the specific error message to the UI
+    throw new Error(error.message || "Não foi possível conectar ao Supabase.");
   }
 }
